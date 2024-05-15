@@ -1,18 +1,25 @@
 import { useState } from "react";
-import { products } from "../assets/data/Database";
+import { products } from "../data/Database";
 
 export const useFilteredProducts = () => {
-  const [category, setCategory] = useState("Todos");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const categories = [
-    "Todos",
-    ...new Set(products.map((product) => product.category)),
-  ];
+  const categories = Array.from(
+    new Set(products.map((product) => product.category))
+  );
 
-  const filteredProducts =
-    category === "Todos"
-      ? products
-      : products.filter((product) => product.category === category);
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
 
-  return { category, setCategory, categories, filteredProducts };
+  const setCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  return {
+    categories,
+    setCategory,
+    filteredProducts,
+    selectedCategory,
+  };
 };

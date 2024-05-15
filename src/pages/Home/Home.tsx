@@ -1,11 +1,12 @@
 import { useFilteredProducts } from "../../hooks/useFilteredProducts";
-
 import ProductCard from "../../components/product/ProductCard";
 import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
 import { useCarts } from "../../hooks/useCart";
+import classNames from "classnames";
 
 const Home = () => {
-  const { categories, setCategory, filteredProducts } = useFilteredProducts();
+  const { categories, setCategory, filteredProducts, selectedCategory } =
+    useFilteredProducts();
   const {
     isModalOpen,
     handleAddToCart,
@@ -23,7 +24,12 @@ const Home = () => {
           <button
             key={cat}
             onClick={() => setCategory(cat)}
-            className="m-2 p-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
+            className={classNames(
+              "m-2 p-2 rounded",
+              cat === selectedCategory
+                ? "bg-orange-600 text-white"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
+            )}
           >
             {cat}
           </button>

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { products } from "../../assets/data/Database";
+import { products } from "../../data/Database";
 import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
 import { useCarts } from "../../hooks/useCart";
 import { convertPrice } from "../../utils";
