@@ -1,35 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import { useFilteredProducts } from "../hooks/useFilteredProducts";
-import { useCart } from "../context/CartContext";
-import { useModal } from "../hooks/useModal";
-import { useSelected } from "../hooks/useSelected";
-import { Product } from "../types/interfaces/Product";
-import ProductCard from "../components/product/ProductCard";
-import CartConfirmationModal from "../components/modal/CartConfirmationModal";
+import { useFilteredProducts } from "../../hooks/useFilteredProducts";
+
+import ProductCard from "../../components/product/ProductCard";
+import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
+import { useCarts } from "../../hooks/useCart";
 
 const Home = () => {
   const { categories, setCategory, filteredProducts } = useFilteredProducts();
-  const { isModalOpen, setIsModalOpen } = useModal();
-  const { setSelectedProductId } = useSelected();
-  const { dispatch } = useCart();
-  const navigate = useNavigate();
-
-  const handleAddToCart = (product: Product) => {
-    dispatch({ type: "ADD_TO_CART", product });
-    setSelectedProductId(product.id);
-    setIsModalOpen(true);
-  };
-
-  const handleContinueShopping = () => {
-    setIsModalOpen(false);
-    setSelectedProductId(null);
-  };
-
-  const handleCheckout = () => {
-    setIsModalOpen(false);
-    setSelectedProductId(null);
-    navigate("/cart");
-  };
+  const {
+    isModalOpen,
+    handleAddToCart,
+    handleCheckout,
+    handleContinueShopping,
+  } = useCarts();
 
   return (
     <div className="p-8">

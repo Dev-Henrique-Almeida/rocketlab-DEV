@@ -8,6 +8,7 @@ export const useFilteredProducts = () => {
     "Todos",
     ...new Set(products.map((product) => product.category)),
   ];
+
   const filteredProducts =
     category === "Todos"
       ? products

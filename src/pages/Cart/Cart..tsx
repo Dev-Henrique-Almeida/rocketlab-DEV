@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { useCart } from "../context/CartContext";
-import { useOrders } from "../context/OrderContext";
-import RemoveModal from "../components/modal/RemoveModal";
-import OrderModal from "../components/modal/OrderModal";
-import { useModal } from "../hooks/useModal";
-import { useSelected } from "../hooks/useSelected";
+import { useCart } from "../../context/CartContext";
+import { useOrders } from "../../context/OrderContext";
+import { useModal } from "../../hooks/useModal";
+import { useSelectedProduct } from "../../hooks/useSelectedProduct";
+import RemoveModal from "../../components/modal/RemoveModal";
+import OrderModal from "../../components/modal/OrderModal";
+import { convertPrice } from "../../utils";
 
 const Cart = () => {
   const { state, dispatch } = useCart();
   const { addOrder } = useOrders();
   const { isModalOpen, setIsModalOpen } = useModal();
-  const { selectedProductId, setSelectedProductId } = useSelected();
+  const { selectedProductId, setSelectedProductId } = useSelectedProduct();
   const [orderItems, setOrderItems] = useState<
     { name: string; quantity: number; price: number }[]
   >([]);
@@ -84,11 +85,8 @@ const Cart = () => {
                 <div>
                   <h2 className="text-lg font-bold">{item.name}</h2>
                   <p className="text-lg font-bold">
-                    Total: R${" "}
-                    {item.price.toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                    Total: R$
+                    {convertPrice(item.price)}
                   </p>
                 </div>
               </div>
@@ -121,12 +119,9 @@ const Cart = () => {
           ))}
           <div className="mt-4">
             <p className="text-lg font-bold">
-              Total: R${" "}
-              {total.toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>{" "}
+              Total: R$
+              {convertPrice(total)}
+            </p>
             <button
               onClick={() => dispatch({ type: "CLEAR_CART" })}
               className="mt-2 p-2 bg-gray-500 hover:bg-gray-600 text-white rounded"

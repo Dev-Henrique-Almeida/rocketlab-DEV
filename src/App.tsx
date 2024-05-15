@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
-import Orders from "./pages/Orders";
+import Home from "./pages/Home/Home";
 import { CartProvider } from "./context/CartContext";
 import { OrderProvider } from "./context/OrderContext";
 import Navbar from "./components/navBar/NavBar";
-import Cart from "./pages/Cart.";
+import Cart from "./pages/Cart/Cart.";
+import ProductDetails from "./pages/Details/ProductDetails";
+import Orders from "./pages/Orders/Orders";
 
 const App = () => {
   return (

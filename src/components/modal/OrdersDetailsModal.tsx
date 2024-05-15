@@ -31,7 +31,13 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
             </li>
           ))}
         </ul>
-        <p className="text-lg font-bold">Total: R$ {order.total.toFixed(2)}</p>
+        <p className="text-lg font-bold">
+          Total: R$
+          {order.total.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </p>
         <button
           onClick={onClose}
           className="w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded"

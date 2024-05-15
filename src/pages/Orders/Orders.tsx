@@ -1,22 +1,13 @@
-import { useState } from "react";
-import { useOrders } from "../context/OrderContext";
-import { Order } from "../types/interfaces/Order";
-import OrderDetailsModal from "../components/modal/OrdersDetailsModal";
+import { useOrders } from "../../context/OrderContext";
+import OrderDetailsModal from "../../components/modal/OrdersDetailsModal";
+import { useCarts } from "../../hooks/useCart";
+import { convertPrice } from "../../utils";
 
 const Orders = () => {
   const { orders } = useOrders();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-  const handleOrderClick = (order: Order) => {
-    setSelectedOrder(order);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedOrder(null);
-  };
+  const { isModalOpen, isSelectedOrder, handleOrderClick, handleCloseModal } =
+    useCarts();
 
   return (
     <div className="p-8">
@@ -43,20 +34,13 @@ const Orders = () => {
                     />
                     <span>
                       {item.quantity}x {item.name} - R$
-                      {(item.price * item.quantity).toLocaleString("pt-BR", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      {convertPrice(item.price * item.quantity)}
                     </span>
                   </li>
                 ))}
               </ul>
               <p className="text-lg font-bold">
-                Total: R${" "}
-                {order.total.toLocaleString("pt-BR", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                Total: R$ {convertPrice(order.total)}
               </p>
             </div>
           ))}
@@ -65,7 +49,7 @@ const Orders = () => {
       <OrderDetailsModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        order={selectedOrder}
+        order={isSelectedOrder}
       />
     </div>
   );
