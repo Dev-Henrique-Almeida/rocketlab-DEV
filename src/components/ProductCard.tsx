@@ -11,6 +11,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     dispatch({ type: "ADD_TO_CART", product });
   };
 
+  const truncateDescription = (description: string, maxLength: number) => {
+    if (description.length > maxLength) {
+      return description.slice(0, maxLength) + "...";
+    }
+    return description;
+  };
+
   return (
     <div className="border flex flex-col items-center w-64 h-80">
       <Link
@@ -25,7 +32,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="flex flex-col items-center justify-between flex-1">
           <h3 className="text-lg font-bold text-center">{product.name}</h3>
           <p className="text-sm text-center mb-2 overflow-hidden h-14">
-            {product.description}
+            {truncateDescription(product.description, 90)}
           </p>
           <p className="font-bold">R$ {product.price.toFixed(2)}</p>
           <button

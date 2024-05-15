@@ -17,7 +17,8 @@ type CartAction =
   | { type: "REMOVE_FROM_CART"; productId: string }
   | { type: "CLEAR_CART" }
   | { type: "INCREMENT_QUANTITY"; productId: string }
-  | { type: "DECREMENT_QUANTITY"; productId: string };
+  | { type: "DECREMENT_QUANTITY"; productId: string }
+  | { type: "CHECKOUT" };
 
 const CartContext = createContext<
   | {
@@ -79,6 +80,9 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
           )
           .filter((item) => item.quantity > 0),
       };
+    }
+    case "CHECKOUT": {
+      return { items: [] };
     }
     default: {
       return state;

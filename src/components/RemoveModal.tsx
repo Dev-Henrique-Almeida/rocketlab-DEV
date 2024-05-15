@@ -1,5 +1,5 @@
 import React from "react";
-import { RemoveModalProps } from "../types/RemoveModal";
+import { RemoveModalProps } from "../types/RemoveModalInterface";
 
 const Modal: React.FC<RemoveModalProps> = ({
   isOpen,

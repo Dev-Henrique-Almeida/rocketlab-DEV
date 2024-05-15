@@ -1,23 +1,27 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
+import Orders from "./pages/Orders";
 import { CartProvider } from "./context/CartContext";
+import { OrderProvider } from "./context/OrderContext";
 import Navbar from "./components/NavBar";
 import Cart from "./pages/Cart.";
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <CartProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:productId" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </Router>
-    </CartProvider>
+    <Router>
+      <CartProvider>
+        <OrderProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/orders" element={<Orders />} />
+          </Routes>
+        </OrderProvider>
+      </CartProvider>
+    </Router>
   );
 };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { products } from "../assets/data/Database";
@@ -17,24 +16,22 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">{product.name}</h1>
-      <div className="flex">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-48 h-48 object-cover mr-8"
-        />
-        <div>
-          <p className="text-xl mb-2">{product.description}</p>
-          <p className="text-lg font-bold">R$ {product.price.toFixed(2)}</p>
-          <button
-            onClick={addToCart}
-            className="mt-4 p-2 bg-green-500 text-white rounded"
-          >
-            Adicionar ao Carrinho
-          </button>
-        </div>
+    <div className="p-8 flex flex-col items-center">
+      <h1 className="text-2xl font-bold mb-6 text-center">{product.name}</h1>
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-96 h-96 object-cover mb-8"
+      />
+      <div className="text-center">
+        <p className="text-xl mb-2">{product.description}</p>
+        <p className="text-lg font-bold">R$ {product.price.toFixed(2)}</p>
+        <button
+          onClick={addToCart}
+          className="mt-4 p-2 bg-green-500 text-white rounded hover:bg-green-700"
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     </div>
   );

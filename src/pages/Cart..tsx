@@ -1,12 +1,20 @@
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useOrders } from "../context/OrderContext";
 import RemoveModal from "../components/RemoveModal";
+import OrderModal from "../components/OrderModal";
 import { useModal } from "../hooks/useModal";
 import { useSelected } from "../hooks/useSelected";
 
 const Cart = () => {
   const { state, dispatch } = useCart();
+  const { addOrder } = useOrders();
   const { isModalOpen, setIsModalOpen } = useModal();
   const { selectedProductId, setSelectedProductId } = useSelected();
+  const [orderItems, setOrderItems] = useState<
+    { name: string; quantity: number; price: number }[]
+  >([]);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
   const total = state.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -37,6 +45,22 @@ const Cart = () => {
     } else {
       dispatch({ type: "DECREMENT_QUANTITY", productId });
     }
+  };
+
+  const handleCheckout = () => {
+    const order = {
+      items: state.items,
+      total,
+      date: new Date().toLocaleString(),
+    };
+    addOrder(order);
+    setOrderItems(state.items);
+    setIsOrderModalOpen(true);
+    dispatch({ type: "CHECKOUT" });
+  };
+
+  const handleOrderModalClose = () => {
+    setIsOrderModalOpen(false);
   };
 
   return (
@@ -97,6 +121,12 @@ const Cart = () => {
             >
               Limpar Carrinho
             </button>
+            <button
+              onClick={handleCheckout}
+              className="mt-2 ml-2 p-2 bg-green-500 text-white rounded"
+            >
+              Fechar Pedido
+            </button>
           </div>
         </div>
       )}
@@ -105,6 +135,11 @@ const Cart = () => {
         onClose={handleCloseModal}
         onConfirm={handleConfirmRemove}
         message="Tem certeza de que deseja remover este produto do carrinho?"
+      />
+      <OrderModal
+        isOpen={isOrderModalOpen}
+        onClose={handleOrderModalClose}
+        items={orderItems}
       />
     </div>
   );

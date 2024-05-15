@@ -26,6 +26,9 @@ const Navbar: React.FC = () => {
             </span>
           )}
         </Link>
+        <Link to="/orders" className="text-white">
+          Pedidos
+        </Link>
       </div>
     </nav>
   );
