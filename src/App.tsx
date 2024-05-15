@@ -4,7 +4,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Orders from "./pages/Orders";
 import { CartProvider } from "./context/CartContext";
 import { OrderProvider } from "./context/OrderContext";
-import Navbar from "./components/NavBar";
+import Navbar from "./components/navBar/NavBar";
 import Cart from "./pages/Cart.";
 
 const App = () => {

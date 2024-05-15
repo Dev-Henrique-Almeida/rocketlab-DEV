@@ -1,10 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
-import { OrderContextType } from "../types/OrderContextInterface";
-import { Order } from "../types/OrderInterface";
+import React, { createContext, useContext, useState, ReactNode } from "react";
+import { Product } from "../types/interfaces/Product";
+import { Order } from "../types/interfaces/Order";
+
+interface OrderContextType {
+  orders: Order[];
+  addOrder: (order: Order) => void;
+}
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
-export const OrderProvider: React.FC<React.PropsWithChildren<{}>> = ({
+export const OrderProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [orders, setOrders] = useState<Order[]>([]);

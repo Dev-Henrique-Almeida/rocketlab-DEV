@@ -140,7 +140,7 @@ export const products = [
     price: 139.99 * 5.5,
     description:
       "O SSD externo Samsung T5 de 1TB, com velocidades de transferência de até 540 MB/s, é resistente a choques e compacto. Especificações técnicas: Capacidade: 1TB, Interface: USB 3.1 Gen 2, Velocidade de transferência: 540 MB/s, Resistência: Choques até 2m, Peso: 51g, Dimensões: 74 x 57.3 x 10.5mm.",
-    image: "/images/samsung-t5.png",
+    image: "/images/samsung-t5.jpeg",
     category: "Armazenamento",
   },
   {

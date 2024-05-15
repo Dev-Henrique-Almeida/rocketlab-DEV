@@ -4,7 +4,7 @@ import React, {
   useReducer,
   PropsWithChildren,
 } from "react";
-import { Product } from "../types/ProductInterface";
+import { Product } from "../types/interfaces/Product";
 
 type CartItem = Product & { quantity: number };
 

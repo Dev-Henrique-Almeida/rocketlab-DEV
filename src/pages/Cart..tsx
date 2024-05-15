@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useOrders } from "../context/OrderContext";
-import RemoveModal from "../components/RemoveModal";
-import OrderModal from "../components/OrderModal";
+import RemoveModal from "../components/modal/RemoveModal";
+import OrderModal from "../components/modal/OrderModal";
 import { useModal } from "../hooks/useModal";
 import { useSelected } from "../hooks/useSelected";
 
@@ -83,7 +83,13 @@ const Cart = () => {
                 />
                 <div>
                   <h2 className="text-lg font-bold">{item.name}</h2>
-                  <p className="text-sm">Preço: R${item.price.toFixed(2)}</p>
+                  <p className="text-lg font-bold">
+                    Total: R${" "}
+                    {item.price.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center space-x-5">
@@ -91,7 +97,7 @@ const Cart = () => {
                   onClick={() =>
                     handleDecrementQuantity(item.id, item.quantity)
                   }
-                  className="flex justify-center items-center w-6 h-6 bg-blue-500 text-white rounded"
+                  className="flex justify-center items-center w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded"
                 >
                   -
                 </button>
@@ -100,7 +106,7 @@ const Cart = () => {
                   onClick={() =>
                     dispatch({ type: "INCREMENT_QUANTITY", productId: item.id })
                   }
-                  className="flex justify-center items-center w-6 h-6 bg-blue-500 text-white rounded"
+                  className="flex justify-center items-center w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded"
                 >
                   +
                 </button>
@@ -114,16 +120,22 @@ const Cart = () => {
             </div>
           ))}
           <div className="mt-4">
-            <p className="text-xl font-bold">Total: R$ {total.toFixed(2)}</p>
+            <p className="text-lg font-bold">
+              Total: R${" "}
+              {total.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </p>{" "}
             <button
               onClick={() => dispatch({ type: "CLEAR_CART" })}
-              className="mt-2 p-2 bg-blue-500 text-white rounded"
+              className="mt-2 p-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
             >
               Limpar Carrinho
             </button>
             <button
               onClick={handleCheckout}
-              className="mt-2 ml-2 p-2 bg-green-500 text-white rounded"
+              className="mt-2 ml-2 p-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
             >
               Fechar Pedido
             </button>
