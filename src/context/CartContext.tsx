@@ -15,7 +15,9 @@ type CartState = {
 type CartAction =
   | { type: "ADD_TO_CART"; product: Product }
   | { type: "REMOVE_FROM_CART"; productId: string }
-  | { type: "CLEAR_CART" };
+  | { type: "CLEAR_CART" }
+  | { type: "INCREMENT_QUANTITY"; productId: string }
+  | { type: "DECREMENT_QUANTITY"; productId: string };
 
 const CartContext = createContext<
   | {
@@ -55,6 +57,28 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
     case "CLEAR_CART": {
       return { items: [] };
+    }
+    case "INCREMENT_QUANTITY": {
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.id === action.productId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+    }
+    case "DECREMENT_QUANTITY": {
+      return {
+        ...state,
+        items: state.items
+          .map((item) =>
+            item.id === action.productId
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
     }
     default: {
       return state;

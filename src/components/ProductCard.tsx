@@ -27,7 +27,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           <p className="text-sm text-center mb-2 overflow-hidden h-14">
             {product.description}
           </p>
-          <p className="font-bold">${product.price.toFixed(2)}</p>
+          <p className="font-bold">R$ {product.price.toFixed(2)}</p>
           <button
             onClick={addToCart}
             className="mt-2 mb-2 p-2 bg-green-500 text-white rounded hover:bg-green-700 hover:border-green-700 focus:outline-none focus:ring-0"
