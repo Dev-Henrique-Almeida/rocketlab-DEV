@@ -3,3 +3,8 @@ export interface CartConfirmationModalProps {
   onClose: () => void;
   onCheckout: () => void;
 }
+
+export interface StockLimitModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

@@ -1,10 +1,13 @@
+import { useState } from "react";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
+import StockLimitModal from "../../components/modal/StockLimitModal";
 import { convertPrice } from "../../utils";
 import { useCarts } from "../../hooks/useCarts";
 import { useOrderModal } from "../../hooks/useOrderModal";
 import { useClearModal } from "../../hooks/useClearModal";
 import { useCheckoutModal } from "../../hooks/useCheckoutModal";
+import { products } from "../../data/Database";
 
 const Cart = () => {
   const {
@@ -33,6 +36,23 @@ const Cart = () => {
     handleCloseCheckoutModal,
     handleConfirmCheckout,
   } = useCheckoutModal();
+
+  const [isStockLimitModalOpen, setStockLimitModalOpen] = useState(false);
+
+  const handleIncrementQuantity = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    const cartItem = state.items.find((item) => item.id === productId);
+
+    if (product && cartItem && cartItem.quantity < product.stock) {
+      dispatch({ type: "INCREMENT_QUANTITY", productId });
+    } else {
+      setStockLimitModalOpen(true);
+    }
+  };
+
+  const handleCloseStockLimitModal = () => {
+    setStockLimitModalOpen(false);
+  };
 
   return (
     <div className="p-8">
@@ -70,9 +90,7 @@ const Cart = () => {
                 </button>
                 <span className="mx-2">{item.quantity}</span>
                 <button
-                  onClick={() =>
-                    dispatch({ type: "INCREMENT_QUANTITY", productId: item.id })
-                  }
+                  onClick={() => handleIncrementQuantity(item.id)}
                   className="flex justify-center items-center w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded"
                 >
                   +
@@ -129,6 +147,10 @@ const Cart = () => {
         onClose={handleCloseCheckoutModal}
         onConfirm={handleConfirmCheckout}
         message="Tem certeza de que deseja fechar o pedido?"
+      />
+      <StockLimitModal
+        isOpen={isStockLimitModalOpen}
+        onClose={handleCloseStockLimitModal}
       />
     </div>
   );
