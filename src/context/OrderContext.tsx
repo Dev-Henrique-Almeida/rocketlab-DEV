@@ -1,5 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Product } from "../types/interfaces/Product";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { Order } from "../types/interfaces/Order";
 
 interface OrderContextType {
@@ -12,11 +17,22 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined);
 export const OrderProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>(() => {
+    const persistedOrders = localStorage.getItem("orders");
+    return persistedOrders ? JSON.parse(persistedOrders) : [];
+  });
 
   const addOrder = (order: Order) => {
-    setOrders((prevOrders) => [...prevOrders, order]);
+    setOrders((prevOrders) => {
+      const updatedOrders = [...prevOrders, order];
+      localStorage.setItem("orders", JSON.stringify(updatedOrders));
+      return updatedOrders;
+    });
   };
+
+  useEffect(() => {
+    localStorage.setItem("orders", JSON.stringify(orders));
+  }, [orders]);
 
   return (
     <OrderContext.Provider value={{ orders, addOrder }}>

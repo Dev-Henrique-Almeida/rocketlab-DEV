@@ -3,6 +3,7 @@ import React, {
   useContext,
   useReducer,
   PropsWithChildren,
+  useEffect,
 } from "react";
 import { Product } from "../types/interfaces/Product";
 
@@ -90,8 +91,23 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
   }
 };
 
+const persistCart = (state: CartState) => {
+  localStorage.setItem("cart", JSON.stringify(state));
+};
+
 export const CartProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [state, dispatch] = useReducer(
+    cartReducer,
+    { items: [] },
+    (initialState) => {
+      const persistedState = localStorage.getItem("cart");
+      return persistedState ? JSON.parse(persistedState) : initialState;
+    }
+  );
+
+  useEffect(() => {
+    persistCart(state);
+  }, [state]);
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
