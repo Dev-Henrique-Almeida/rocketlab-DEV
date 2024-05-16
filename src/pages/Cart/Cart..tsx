@@ -9,6 +9,7 @@ import { useOrderModal } from "../../hooks/useOrderModal";
 import { useClearModal } from "../../hooks/useClearModal";
 import { useCheckoutModal } from "../../hooks/useCheckoutModal";
 import { products } from "../../data/Database";
+import { useStockModal } from "../../hooks/useStockModal";
 
 const Cart = () => {
   const {
@@ -30,7 +31,6 @@ const Cart = () => {
     handleConfirmClearCart,
   } = useClearModal();
 
-  const { isOrderModalOpen, handleOrderModalClose } = useOrderModal();
   const {
     isCheckoutModalOpen,
     handleCheckoutCartScreen,
@@ -38,8 +38,14 @@ const Cart = () => {
     handleConfirmCheckout,
   } = useCheckoutModal();
 
-  const [isStockLimitModalOpen, setStockLimitModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const {
+    isStockLimitModalOpen,
+    setStockLimitModalOpen,
+    handleCloseStockLimitModal,
+    handleProductClick,
+  } = useStockModal();
+
+  const { isOrderModalOpen, handleOrderModalClose } = useOrderModal();
 
   const handleIncrementQuantity = (productId: string) => {
     const product = products.find((p) => p.id === productId);
@@ -50,14 +56,6 @@ const Cart = () => {
     } else {
       setStockLimitModalOpen(true);
     }
-  };
-
-  const handleCloseStockLimitModal = () => {
-    setStockLimitModalOpen(false);
-  };
-
-  const handleProductClick = (productId: string) => {
-    navigate(`/product/${productId}`);
   };
 
   return (
