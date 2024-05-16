@@ -3,6 +3,8 @@ import OrderModal from "../../components/modal/OrderModal";
 import { convertPrice } from "../../utils";
 import { useCarts } from "../../hooks/useCarts";
 import { useOrderModal } from "../../hooks/useOrderModal";
+import { useClearModal } from "../../hooks/useClearModal";
+import { useCheckoutModal } from "../../hooks/useCheckoutModal";
 
 const Cart = () => {
   const {
@@ -11,14 +13,26 @@ const Cart = () => {
     handleCloseModal,
     handleConfirmRemove,
     dispatch,
-    handleCheckoutCart,
     isOrderItems,
     isModalOpen,
     state,
     total,
   } = useCarts();
 
+  const {
+    isClearCartModalOpen,
+    handleCloseClearCartModal,
+    handleClearCart,
+    handleConfirmClearCart,
+  } = useClearModal();
+
   const { isOrderModalOpen, handleOrderModalClose } = useOrderModal();
+  const {
+    isCheckoutModalOpen,
+    handleCheckoutCartScreen,
+    handleCloseCheckoutModal,
+    handleConfirmCheckout,
+  } = useCheckoutModal();
 
   return (
     <div className="p-8">
@@ -30,9 +44,9 @@ const Cart = () => {
           {state.items.map((item) => (
             <div
               key={item.id}
-              className="flex justify-between items-center mb-4"
+              className="flex flex-col sm:flex-row justify-between items-center mb-4"
             >
-              <div className="flex items-center">
+              <div className="flex items-center mb-4 sm:mb-0">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -41,8 +55,7 @@ const Cart = () => {
                 <div>
                   <h2 className="text-lg font-bold">{item.name}</h2>
                   <p className="text-lg font-bold">
-                    Total: R$
-                    {convertPrice(item.price)}
+                    Total: R${convertPrice(item.price)}
                   </p>
                 </div>
               </div>
@@ -66,30 +79,31 @@ const Cart = () => {
                 </button>
                 <button
                   onClick={() => handleRemoveClick(item.id)}
-                  className="p-2 bg-red-500 text-white rounded ml-4"
+                  className="p-2 bg-red-500 hover:bg-red-600 text-white rounded"
                 >
                   Remover
                 </button>
               </div>
             </div>
           ))}
-          <div className="mt-4">
-            <p className="text-lg font-bold">
-              Total: R$
-              {convertPrice(total)}
+          <div className="mt-4 flex flex-col sm:flex-row justify-between items-center">
+            <p className="text-lg font-bold mb-4 sm:mb-0">
+              Total: R${convertPrice(total)}
             </p>
-            <button
-              onClick={() => dispatch({ type: "CLEAR_CART" })}
-              className="mt-2 p-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
-            >
-              Limpar Carrinho
-            </button>
-            <button
-              onClick={handleCheckoutCart}
-              className="mt-2 ml-2 p-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
-            >
-              Fechar Pedido
-            </button>
+            <div className="flex space-x-4">
+              <button
+                onClick={handleClearCart}
+                className="p-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
+              >
+                Limpar Carrinho
+              </button>
+              <button
+                onClick={handleCheckoutCartScreen}
+                className="p-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
+              >
+                Fechar Pedido
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -103,6 +117,18 @@ const Cart = () => {
         isOpen={isOrderModalOpen}
         onClose={handleOrderModalClose}
         items={isOrderItems}
+      />
+      <RemoveModal
+        isOpen={isClearCartModalOpen}
+        onClose={handleCloseClearCartModal}
+        onConfirm={handleConfirmClearCart}
+        message="Tem certeza de que deseja limpar o carrinho?"
+      />
+      <RemoveModal
+        isOpen={isCheckoutModalOpen}
+        onClose={handleCloseCheckoutModal}
+        onConfirm={handleConfirmCheckout}
+        message="Tem certeza de que deseja fechar o pedido?"
       />
     </div>
   );

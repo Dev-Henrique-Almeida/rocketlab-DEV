@@ -1,16 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { products } from "../data/Database";
 
 export const useFilteredProducts = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const categories = Array.from(
-    new Set(products.map((product) => product.category))
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    "Todos"
   );
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  useEffect(() => {
+    const uniqueCategories: string[] = [
+      "Todos",
+      ...new Set(products.map((product) => product.category)),
+    ];
+    setCategories(uniqueCategories);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory && selectedCategory !== "Todos") {
+      setFilteredProducts(
+        products.filter((product) => product.category === selectedCategory)
+      );
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [selectedCategory]);
+
+  const resetCategory = () => {
+    setSelectedCategory("Todos");
+  };
 
   const setCategory = (category: string) => {
     setSelectedCategory(category);
@@ -21,5 +39,6 @@ export const useFilteredProducts = () => {
     setCategory,
     filteredProducts,
     selectedCategory,
+    resetCategory,
   };
 };

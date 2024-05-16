@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   return (
-    <div className="border flex flex-col items-center w-full sm:w-64 h-85">
+    <div className="border flex flex-col items-center w-full">
       <Link
         to={`/product/${product.id}`}
         className="flex flex-col items-center flex-1 hover:bg-gray-500 transition-colors text-white hover:text-white"
@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-32 h-32 object-cover "
+          className="w-32 h-32 pt-4 object-cover mb-4"
         />
         <div className="flex flex-col items-center justify-between flex-1">
           <h3 className="text-lg font-bold text-center">{product.name}</h3>
