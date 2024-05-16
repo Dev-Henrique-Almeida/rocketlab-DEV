@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
 import StockLimitModal from "../../components/modal/StockLimitModal";
