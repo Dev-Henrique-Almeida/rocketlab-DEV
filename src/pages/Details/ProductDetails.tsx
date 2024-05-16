@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { products } from "../../data/Database";
 import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
-import { useCarts } from "../../hooks/useCart";
+import { useCarts } from "../../hooks/useCarts";
 import { convertPrice } from "../../utils";
 
 const ProductDetails = () => {

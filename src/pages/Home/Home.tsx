@@ -1,8 +1,8 @@
 import { useFilteredProducts } from "../../hooks/useFilteredProducts";
 import ProductCard from "../../components/product/ProductCard";
 import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
-import { useCarts } from "../../hooks/useCart";
 import classNames from "classnames";
+import { useCarts } from "../../hooks/useCarts";
 
 const Home = () => {
   const { categories, setCategory, filteredProducts, selectedCategory } =
@@ -35,14 +35,16 @@ const Home = () => {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-4">
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onAddToCart={() => handleAddToCart(product)}
-          />
-        ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={() => handleAddToCart(product)}
+            />
+          ))}
+        </div>
       </div>
       <CartConfirmationModal
         isOpen={isModalOpen}

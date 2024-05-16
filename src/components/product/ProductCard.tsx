@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   return (
-    <div className="border flex flex-col items-center w-64 h-85">
+    <div className="border flex flex-col items-center w-full sm:w-64 h-85">
       <Link
         to={`/product/${product.id}`}
         className="flex flex-col items-center flex-1 hover:bg-gray-500 transition-colors text-white hover:text-white"
@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         />
         <div className="flex flex-col items-center justify-between flex-1">
           <h3 className="text-lg font-bold text-center">{product.name}</h3>
-          <p className="text-sm text-center mb-2 overflow-hidden h-15">
+          <p className="text-xs text-center mb-2 overflow-hidden h-15">
             {product.description.length > 82
               ? `${product.description.slice(0, 79)}...`
               : product.description}

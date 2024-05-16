@@ -1,68 +1,24 @@
-import { useState } from "react";
-import { useCart } from "../../context/CartContext";
-import { useOrders } from "../../context/OrderContext";
-import { useModal } from "../../hooks/useModal";
-import { useSelectedProduct } from "../../hooks/useSelectedProduct";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
 import { convertPrice } from "../../utils";
+import { useCarts } from "../../hooks/useCarts";
+import { useOrderModal } from "../../hooks/useOrderModal";
 
 const Cart = () => {
-  const { state, dispatch } = useCart();
-  const { addOrder } = useOrders();
-  const { isModalOpen, setIsModalOpen } = useModal();
-  const { selectedProductId, setSelectedProductId } = useSelectedProduct();
-  const [orderItems, setOrderItems] = useState<
-    { name: string; quantity: number; price: number }[]
-  >([]);
-  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const {
+    handleDecrementQuantity,
+    handleRemoveClick,
+    handleCloseModal,
+    handleConfirmRemove,
+    dispatch,
+    handleCheckoutCart,
+    isOrderItems,
+    isModalOpen,
+    state,
+    total,
+  } = useCarts();
 
-  const total = state.items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  const handleRemoveClick = (productId: string) => {
-    setSelectedProductId(productId);
-    setIsModalOpen(true);
-  };
-
-  const handleConfirmRemove = () => {
-    if (selectedProductId) {
-      dispatch({ type: "REMOVE_FROM_CART", productId: selectedProductId });
-      setIsModalOpen(false);
-      setSelectedProductId(null);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedProductId(null);
-  };
-
-  const handleDecrementQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 1) {
-      handleRemoveClick(productId);
-    } else {
-      dispatch({ type: "DECREMENT_QUANTITY", productId });
-    }
-  };
-
-  const handleCheckout = () => {
-    const order = {
-      items: state.items,
-      total,
-      date: new Date().toLocaleString(),
-    };
-    addOrder(order);
-    setOrderItems(state.items);
-    setIsOrderModalOpen(true);
-    dispatch({ type: "CHECKOUT" });
-  };
-
-  const handleOrderModalClose = () => {
-    setIsOrderModalOpen(false);
-  };
+  const { isOrderModalOpen, handleOrderModalClose } = useOrderModal();
 
   return (
     <div className="p-8">
@@ -129,7 +85,7 @@ const Cart = () => {
               Limpar Carrinho
             </button>
             <button
-              onClick={handleCheckout}
+              onClick={handleCheckoutCart}
               className="mt-2 ml-2 p-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
             >
               Fechar Pedido
@@ -146,7 +102,7 @@ const Cart = () => {
       <OrderModal
         isOpen={isOrderModalOpen}
         onClose={handleOrderModalClose}
-        items={orderItems}
+        items={isOrderItems}
       />
     </div>
   );

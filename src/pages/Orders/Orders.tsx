@@ -1,6 +1,6 @@
 import { useOrders } from "../../context/OrderContext";
 import OrderDetailsModal from "../../components/modal/OrdersDetailsModal";
-import { useCarts } from "../../hooks/useCart";
+import { useCarts } from "../../hooks/useCarts";
 import { convertPrice } from "../../utils";
 
 const Orders = () => {
