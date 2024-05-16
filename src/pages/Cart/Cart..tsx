@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
 import StockLimitModal from "../../components/modal/StockLimitModal";
@@ -38,6 +39,7 @@ const Cart = () => {
   } = useCheckoutModal();
 
   const [isStockLimitModalOpen, setStockLimitModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleIncrementQuantity = (productId: string) => {
     const product = products.find((p) => p.id === productId);
@@ -54,6 +56,10 @@ const Cart = () => {
     setStockLimitModalOpen(false);
   };
 
+  const handleProductClick = (productId: string) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Carrinho de Compras</h1>
@@ -64,7 +70,8 @@ const Cart = () => {
           {state.items.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row justify-between items-center mb-4"
+              className="flex flex-col sm:flex-row justify-between items-center mb-4 cursor-pointer group"
+              onClick={() => handleProductClick(item.id)}
             >
               <div className="flex items-center mb-4 sm:mb-0">
                 <img
@@ -73,30 +80,39 @@ const Cart = () => {
                   className="w-20 h-20 object-cover mr-4"
                 />
                 <div>
-                  <h2 className="text-lg font-bold">{item.name}</h2>
-                  <p className="text-lg font-bold">
+                  <h2 className="text-lg font-bold group-hover:text-gray-400">
+                    {item.name}
+                  </h2>
+                  <p className="text-lg font-bold group-hover:text-gray-400">
                     Total: R${convertPrice(item.price)}
                   </p>
                 </div>
               </div>
               <div className="flex items-center space-x-5">
                 <button
-                  onClick={() =>
-                    handleDecrementQuantity(item.id, item.quantity)
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDecrementQuantity(item.id, item.quantity);
+                  }}
                   className="flex justify-center items-center w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded"
                 >
                   -
                 </button>
                 <span className="mx-2">{item.quantity}</span>
                 <button
-                  onClick={() => handleIncrementQuantity(item.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleIncrementQuantity(item.id);
+                  }}
                   className="flex justify-center items-center w-6 h-6 bg-orange-500 hover:bg-orange-600 text-white rounded"
                 >
                   +
                 </button>
                 <button
-                  onClick={() => handleRemoveClick(item.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveClick(item.id);
+                  }}
                   className="p-2 bg-red-500 hover:bg-red-600 text-white rounded"
                 >
                   Remover
