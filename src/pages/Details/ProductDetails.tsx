@@ -26,9 +26,12 @@ const ProductDetails = () => {
         alt={product.name}
         className="w-96 h-96 object-cover mb-8"
       />
-      <div className="text-center">
+      <div className="text-start">
         <p className="text-xl mb-2">{product.description}</p>
         <p className="text-lg font-bold">R$ {convertPrice(product.price)}</p>
+        <p className="text-lg font-bold">
+          Estoque disponível: {product.stock}
+        </p>{" "}
         <button
           onClick={() => {
             handleAddToCart(product);
