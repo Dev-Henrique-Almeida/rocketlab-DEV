@@ -26,3 +26,13 @@ export interface OrderDetailsModalProps {
   onClose: () => void;
   order: Order | null;
 }
+
+export interface CheckoutModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  handleFinalConfirmCheckout: () => void;
+  paymentMethod: string;
+  setPaymentMethod: (method: string) => void;
+  showQrCode: boolean;
+}

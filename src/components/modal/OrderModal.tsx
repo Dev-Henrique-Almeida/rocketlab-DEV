@@ -1,5 +1,6 @@
 import React from "react";
 import { OrderModalProps } from "../../types/interfaces/Order";
+import { convertPrice } from "../../utils";
 
 const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, items }) => {
   if (!isOpen) return null;
@@ -12,10 +13,7 @@ const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, items }) => {
           {items.map((item, index) => (
             <li key={index} className="mb-2">
               {item.quantity}x {item.name} - R$
-              {(item.price * item.quantity).toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+              {convertPrice(item.price * item.quantity)}
             </li>
           ))}
         </ul>

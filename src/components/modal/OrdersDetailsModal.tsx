@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { OrderDetailsModalProps } from "../../types/interfaces/Order";
+import { convertPrice } from "../../utils";
 
 const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
   isOpen,
@@ -33,10 +34,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
         </ul>
         <p className="text-lg font-bold">
           Total: R$
-          {order.total.toLocaleString("pt-BR", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
+          {convertPrice(order.total)}
         </p>
         <button
           onClick={onClose}

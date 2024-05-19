@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
 import StockLimitModal from "../../components/modal/StockLimitModal";
+import CheckoutModal from "../../components/modal/CheckoutModal";
 import { convertPrice } from "../../utils";
 import { useCarts } from "../../hooks/Cart/useCarts";
 import { useOrderModal } from "../../hooks/Order/useOrderModal";
@@ -11,8 +12,8 @@ import { products } from "../../data/Database";
 import { useStockModal } from "../../hooks/Order/useStockModal";
 import { useHandlePage } from "../../hooks/Pages/useHandlePage";
 
-const Cart = () => {
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+const Cart: React.FC = () => {
+  const [itemsPerPage, setItemsPerPage] = useState<number>(4);
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,7 +52,16 @@ const Cart = () => {
     handleCheckoutCartScreen,
     handleCloseCheckoutModal,
     handleConfirmCheckout,
+    handleFinalConfirmCheckout,
+    paymentMethod,
+    setPaymentMethod,
+    showQrCode,
   } = useCheckoutModal();
+
+  const handleFinalConfirmCheckout = () => {
+    finalizeOrder();
+    setShowQrCode(false);
+  };
 
   const {
     isStockLimitModalOpen,
@@ -213,11 +223,14 @@ const Cart = () => {
         onConfirm={handleConfirmClearCart}
         message="Tem certeza de que deseja limpar o carrinho?"
       />
-      <RemoveModal
+      <CheckoutModal
         isOpen={isCheckoutModalOpen}
         onClose={handleCloseCheckoutModal}
         onConfirm={handleConfirmCheckout}
-        message="Tem certeza de que deseja fechar o pedido?"
+        handleFinalConfirmCheckout={handleFinalConfirmCheckout} // Use this prop
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+        showQrCode={showQrCode}
       />
       <StockLimitModal
         isOpen={isStockLimitModalOpen}
