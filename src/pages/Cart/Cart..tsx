@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RemoveModal from "../../components/modal/RemoveModal";
 import OrderModal from "../../components/modal/OrderModal";
 import StockLimitModal from "../../components/modal/StockLimitModal";

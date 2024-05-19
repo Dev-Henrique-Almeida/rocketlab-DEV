@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFilteredProducts } from "../../hooks/Selected/useFilteredProducts";
 import ProductCard from "../../components/product/ProductCard";
 import CartConfirmationModal from "../../components/modal/CartConfirmationModal";
@@ -17,7 +17,7 @@ const Home = () => {
       setItemsPerPage(window.innerWidth < 640 ? 2 : 8);
     };
 
-    handleResize(); // Set initial value
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
