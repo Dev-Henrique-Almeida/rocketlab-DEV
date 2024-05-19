@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCarts } from "./useCarts";
+import { useCarts } from "../Cart/useCarts";
 
 export const useClearModal = () => {
   const { dispatch } = useCarts();

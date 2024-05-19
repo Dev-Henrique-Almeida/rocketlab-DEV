@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { useCart } from "../../context/CartContext";
 import { useOrders } from "../../context/OrderContext";
+import logo from "../../assets/logo.png";
 
 const Navbar: React.FC = () => {
   const { state: cartState } = useCart();
@@ -15,8 +16,11 @@ const Navbar: React.FC = () => {
   const totalOrders = orders.length;
 
   return (
-    <nav className="bg-gradient-to-r from-orange-400 to-orange-600 p-4 flex justify-center">
-      <div className="flex space-x-4">
+    <nav className="bg-gradient-to-r from-orange-400 to-orange-600 p-4 flex justify-between items-center">
+      <Link to="/" className="flex items-center">
+        <img src={logo} alt="Logo" className="h-8" />
+      </Link>
+      <div className="flex-1 flex justify-center space-x-4">
         <Link to="/" className="text-white">
           Home
         </Link>

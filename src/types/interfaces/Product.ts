@@ -6,3 +6,8 @@ export interface Product {
   image: string;
   stock: number;
 }
+
+export interface ProductCardProps {
+  product: Product;
+  onAddToCart: () => void;
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { products } from "../data/Database";
+import { products } from "../../data/Database";
 
 export const useFilteredProducts = () => {
   const [categories, setCategories] = useState<string[]>([]);

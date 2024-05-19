@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useSelectedProduct } from "./useSelectedProduct";
-import { useModal } from "./useModal";
-import { Product } from "../types/interfaces/Product";
-import { useCart } from "../context/CartContext";
-import { Order } from "../types/interfaces/Order";
-import { useSelectedOrder } from "./useSelectedOrder";
-import { useOrders } from "../context/OrderContext";
-import { useOrderItems } from "./useOrderItems";
-import { useOrderModal } from "./useOrderModal";
+import { useSelectedProduct } from "../Selected/useSelectedProduct";
+import { useModal } from "../Modal/useModal";
+import { Product } from "../../types/interfaces/Product";
+import { useCart } from "../../context/CartContext";
+import { Order } from "../../types/interfaces/Order";
+import { useSelectedOrder } from "../Selected/useSelectedOrder";
+import { useOrders } from "../../context/OrderContext";
+import { useOrderItems } from "../Order/useOrderItems";
+import { useOrderModal } from "../Order/useOrderModal";
 
 export const useCarts = () => {
   const { isModalOpen, setIsModalOpen } = useModal();
