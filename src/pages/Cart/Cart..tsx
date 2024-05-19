@@ -58,11 +58,6 @@ const Cart: React.FC = () => {
     showQrCode,
   } = useCheckoutModal();
 
-  const handleFinalConfirmCheckout = () => {
-    finalizeOrder();
-    setShowQrCode(false);
-  };
-
   const {
     isStockLimitModalOpen,
     setStockLimitModalOpen,
@@ -227,7 +222,7 @@ const Cart: React.FC = () => {
         isOpen={isCheckoutModalOpen}
         onClose={handleCloseCheckoutModal}
         onConfirm={handleConfirmCheckout}
-        handleFinalConfirmCheckout={handleFinalConfirmCheckout} // Use this prop
+        handleFinalConfirmCheckout={handleFinalConfirmCheckout}
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
         showQrCode={showQrCode}
