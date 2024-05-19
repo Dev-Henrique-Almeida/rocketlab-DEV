@@ -17,7 +17,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
     if (showQrCode) {
       timer = setTimeout(() => {
         setShowConfirmButton(true);
-      }, 10000);
+      }, 10000); // 10 segundos
     }
     return () => {
       clearTimeout(timer);
@@ -62,7 +62,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
         </div>
         {showQrCode && (
           <div className="mb-4">
-            <img src="src/assets/pix.png" alt="QR Code" />
+            <img src="https://i.imgur.com/mKnIuk7.png" alt="QR Code" />
           </div>
         )}
         {showQrCode && showConfirmButton && (

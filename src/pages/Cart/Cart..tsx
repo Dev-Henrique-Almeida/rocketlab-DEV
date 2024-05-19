@@ -79,7 +79,6 @@ const Cart: React.FC = () => {
   };
 
   const {
-    isVisibleItems,
     totalPages,
     currentPage,
     handleNextPage,
@@ -173,11 +172,7 @@ const Cart: React.FC = () => {
               <button
                 onClick={handleShowMore}
                 className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded"
-              >
-                {isVisibleItems >= state.items.length
-                  ? "Ver Menos"
-                  : "Ver Mais"}
-              </button>
+              ></button>
             </div>
           )}
           <div className="mt-4 flex flex-col sm:flex-row justify-between items-center">
