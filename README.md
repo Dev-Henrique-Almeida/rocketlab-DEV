@@ -57,6 +57,7 @@ npm run dev
 - Aumente ou diminua a quantidade de cada produto.
 - Remova produtos do carrinho.
 - Visualize o valor total dos produtos no carrinho.
+- Possibilidade de escolher a forma de pagamento.
 - Finalize a compra do seu carrinho.
 
 #### Pedidos
