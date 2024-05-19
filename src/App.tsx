@@ -6,7 +6,7 @@ import Navbar from "./components/navBar/NavBar";
 import Cart from "./pages/Cart/Cart.";
 import ProductDetails from "./pages/Details/ProductDetails";
 import Orders from "./pages/Orders/Orders";
-import Footer from "./components/footer/Footer";
+/* import Footer from "./components/footer/Footer"; */
 
 const App = () => {
   return (
