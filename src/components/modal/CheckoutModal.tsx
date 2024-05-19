@@ -32,32 +32,92 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({
       <div className="bg-gray-600 p-4 rounded shadow-lg max-w-lg w-full sm:w-3/4 md:w-1/2">
         <h2 className="text-xl font-bold mb-4">Escolha a forma de pagamento</h2>
         <div className="mb-4">
-          <label className="block mb-2">
+          <label className="block mb-4">
             <input
               type="radio"
               value="Cartao de Credito"
               checked={paymentMethod === "Cartao de Credito"}
               onChange={(e) => setPaymentMethod(e.target.value)}
+              className="hidden"
             />
-            <span className="ml-2">Cartão de Crédito</span>
+            <div
+              className={`flex items-center p-2 border rounded-lg cursor-pointer ${
+                paymentMethod === "Cartao de Credito"
+                  ? "border-orange-600 bg-orange-500"
+                  : "border-gray-300"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 mr-2 flex items-center justify-center border rounded-full ${
+                  paymentMethod === "Cartao de Credito"
+                    ? "border-orange-600 bg-orange-500"
+                    : "border-gray-300"
+                }`}
+              >
+                {paymentMethod === "Cartao de Credito" && (
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
+              <span className="ml-2">Cartão de Crédito</span>
+            </div>
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4">
             <input
               type="radio"
               value="Dinheiro"
               checked={paymentMethod === "Dinheiro"}
               onChange={(e) => setPaymentMethod(e.target.value)}
+              className="hidden"
             />
-            <span className="ml-2">Dinheiro</span>
+            <div
+              className={`flex items-center p-2 border rounded-lg cursor-pointer ${
+                paymentMethod === "Dinheiro"
+                  ? "border-orange-600 bg-orange-500"
+                  : "border-gray-300"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 mr-2 flex items-center justify-center border rounded-full ${
+                  paymentMethod === "Dinheiro"
+                    ? "border-orange-600 bg-orange-500"
+                    : "border-gray-300"
+                }`}
+              >
+                {paymentMethod === "Dinheiro" && (
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
+              <span className="ml-2">Dinheiro</span>
+            </div>
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4">
             <input
               type="radio"
               value="Pix"
               checked={paymentMethod === "Pix"}
               onChange={(e) => setPaymentMethod(e.target.value)}
+              className="hidden"
             />
-            <span className="ml-2">Pix</span>
+            <div
+              className={`flex items-center p-2 border rounded-lg cursor-pointer ${
+                paymentMethod === "Pix"
+                  ? "border-orange-600 bg-orange-500"
+                  : "border-gray-300"
+              }`}
+            >
+              <div
+                className={`w-4 h-4 mr-2 flex items-center justify-center border rounded-full ${
+                  paymentMethod === "Pix"
+                    ? "border-orange-600 bg-orange-500"
+                    : "border-gray-300"
+                }`}
+              >
+                {paymentMethod === "Pix" && (
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
+              <span className="ml-2">Pix</span>
+            </div>
           </label>
         </div>
         {showQrCode && (
